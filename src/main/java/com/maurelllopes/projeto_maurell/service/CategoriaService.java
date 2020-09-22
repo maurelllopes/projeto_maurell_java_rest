@@ -1,7 +1,7 @@
 package com.maurelllopes.projeto_maurell.service;
 
 import com.maurelllopes.projeto_maurell.domain.Categoria;
-import org.hibernate.ObjectNotFoundException;
+import com.maurelllopes.projeto_maurell.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.maurelllopes.projeto_maurell.repositories.CategoriaRepository;
@@ -16,7 +16,8 @@ public class CategoriaService {
 
     public Categoria buscar(Integer id){
         Optional<Categoria> obj = repo.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 
-    }
-}
+    }}
+
