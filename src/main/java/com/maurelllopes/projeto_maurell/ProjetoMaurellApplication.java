@@ -1,13 +1,17 @@
 package com.maurelllopes.projeto_maurell;
 
 import com.maurelllopes.projeto_maurell.domain.Categoria;
+import com.maurelllopes.projeto_maurell.domain.Cidade;
+import com.maurelllopes.projeto_maurell.domain.Estado;
 import com.maurelllopes.projeto_maurell.domain.Produto;
 import com.maurelllopes.projeto_maurell.repositories.CategoriaRepository;
+import com.maurelllopes.projeto_maurell.repositories.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.maurelllopes.projeto_maurell.repositories.ProdutoRepository;
+import com.maurelllopes.projeto_maurell.repositories.CidadeRepository;
 
 import java.util.Arrays;
 
@@ -18,6 +22,10 @@ public class ProjetoMaurellApplication implements CommandLineRunner{
 	private CategoriaRepository categoriaRepository;
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	@Autowired
+	private CidadeRepository cidadeRepository;
+	@Autowired
+	private EstadoRepository estadoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetoMaurellApplication.class, args);
@@ -42,6 +50,19 @@ public class ProjetoMaurellApplication implements CommandLineRunner{
 
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
+
+		Estado est1 = new Estado(null, "Minas Gerais");
+		Estado est2 = new Estado(null, "São Paulo");
+
+		Cidade c1 = new Cidade(null, "Uberlândia", est1);
+		Cidade c2 = new Cidade(null, "São Paulo", est2);
+		Cidade c3 = new Cidade(null, "Campinas", est2);
+
+		est1.getCidades().addAll(Arrays.asList(c1));
+		est2.getCidades().addAll(Arrays.asList(c2, c3));
+
+		estadoRepository.saveAll(Arrays.asList(est1, est2));
+		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
 	}
 }
