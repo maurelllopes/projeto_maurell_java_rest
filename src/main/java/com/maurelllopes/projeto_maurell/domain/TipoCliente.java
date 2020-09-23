@@ -2,7 +2,7 @@ package com.maurelllopes.projeto_maurell.domain;
 
 public enum TipoCliente {
 
-    PSEEOAFISICA(1, "Pessoa Física"),
+    PESSOAFISICA(1, "Pessoa Física"),
     PESSOAJURIDICA(2, "Pessoa Juridica");
 
     private int cod;

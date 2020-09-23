@@ -15,28 +15,21 @@ public class StandardError implements Serializable {
         this.setMsg(msg);
         this.setTimeStamp(timeStamp);
     }
-
-
     public Integer getStatus() {
         return status;
     }
-
     public void setStatus(Integer status) {
         this.status = status;
     }
-
     public String getMsg() {
         return msg;
     }
-
     public void setMsg(String msg) {
         this.msg = msg;
     }
-
     public long getTimeStamp() {
         return timeStamp;
     }
-
     public void setTimeStamp(long timeStamp) {
         this.timeStamp = timeStamp;
     }
