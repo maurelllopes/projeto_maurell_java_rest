@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.maurelllopes.projeto_maurell.repositories.CategoriaRepository;
 import java.util.Optional;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class CategoriaService {
@@ -40,5 +41,9 @@ public class CategoriaService {
             throw new DataIntegrityService("Não é possível excluir categorias com produtos");
 
         }
+    }
+    public List<Categoria> findAll() {
+        return repo.findAll();
+
     }
 }

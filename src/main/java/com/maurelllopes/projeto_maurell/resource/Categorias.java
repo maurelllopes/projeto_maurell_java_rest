@@ -1,5 +1,6 @@
 package com.maurelllopes.projeto_maurell.resource;
 
+import com.maurelllopes.projeto_maurell.DTO.CategoriaDTO;
 import com.maurelllopes.projeto_maurell.domain.Categoria;
 import com.maurelllopes.projeto_maurell.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value="/categorias")
@@ -43,6 +45,11 @@ public class Categorias {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
-
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<CategoriaDTO>> findAll(){
+        List<Categoria> list = service.findAll();
+        List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
+    }
     }
 
