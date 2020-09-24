@@ -2,6 +2,7 @@ package com.maurelllopes.projeto_maurell.service;
 
 import com.maurelllopes.projeto_maurell.DTO.CategoriaDTO;
 import com.maurelllopes.projeto_maurell.domain.Categoria;
+import com.maurelllopes.projeto_maurell.domain.Cliente;
 import com.maurelllopes.projeto_maurell.service.exception.DataIntegrityService;
 import com.maurelllopes.projeto_maurell.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,9 @@ public class CategoriaService {
     }
 
     public Categoria update(Categoria obj) {
-        find(obj.getId());
-        return repo.save(obj);
+        Categoria newObj = find(obj.getId());
+        updateData(newObj, obj);
+        return repo.save(newObj);
     }
 
     public void delete(Integer id) {
@@ -58,6 +60,10 @@ public class CategoriaService {
     }
     public Categoria fromDTO(CategoriaDTO objDto){
         return new Categoria(objDto.getId(), objDto.getNome());
+    }
+    private void updateData(Categoria newObj, Categoria obj){
+        newObj.setNome(obj.getNome());
+
     }
 
 }
