@@ -1,5 +1,6 @@
 package com.maurelllopes.projeto_maurell.service;
 
+import com.maurelllopes.projeto_maurell.DTO.CategoriaDTO;
 import com.maurelllopes.projeto_maurell.domain.Categoria;
 import com.maurelllopes.projeto_maurell.service.exception.DataIntegrityService;
 import com.maurelllopes.projeto_maurell.service.exception.ObjectNotFoundException;
@@ -55,6 +56,9 @@ public class CategoriaService {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
     }
-    
+    public Categoria fromDTO(CategoriaDTO objDto){
+        return new Categoria(objDto.getId(), objDto.getNome());
+    }
+
 }
 
