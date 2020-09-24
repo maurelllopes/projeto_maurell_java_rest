@@ -42,7 +42,7 @@ public class Cliente implements Serializable {
         this.setNome(nome);
         this.setEmail(email);
         this.setCpfouCnpj(cpfouCnpj);
-        this.tipo = tipo.getCod();
+        this.tipo = (tipo==null) ? null : tipo.getCod();
     }
 
     public Integer getId() {
