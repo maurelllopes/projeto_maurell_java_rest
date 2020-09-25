@@ -1,6 +1,9 @@
 package com.maurelllopes.projeto_maurell.resource;
 
+import com.maurelllopes.projeto_maurell.DTO.CategoriaDTO;
 import com.maurelllopes.projeto_maurell.DTO.ClienteDTO;
+import com.maurelllopes.projeto_maurell.DTO.ClienteNewDTO;
+import com.maurelllopes.projeto_maurell.domain.Categoria;
 import com.maurelllopes.projeto_maurell.domain.Cliente;
 import com.maurelllopes.projeto_maurell.domain.Cliente;
 import com.maurelllopes.projeto_maurell.service.ClienteService;
@@ -8,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,5 +56,13 @@ public class ClienteResource {
         Page<Cliente> list = service.findPage(page, linesPerPage, orderBy, direction);
         Page<ClienteDTO> listDTO = list.map(obj -> new ClienteDTO(obj));
         return ResponseEntity.ok().body(listDTO);
+    }
+    @RequestMapping(method=RequestMethod.POST)
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto){
+        Cliente obj = service.fromDTO(objDto);
+        obj = service.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 }
